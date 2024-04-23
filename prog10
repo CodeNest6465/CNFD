@@ -1,0 +1,68 @@
+Prog 6:
+
+File > new > project > maven > tick first and second check box and add group id as com.example and artifact and name as prg6 and also give description and click on finish
+
+
+
+
+Prog 10 :
+
+minikube start --driver=docker
+minikube status
+
+eval $(minikube docker-env)
+
+Build cmd $ docker build -t <image name> .
+
+add yaml file
+
+$ kubectl apply -f kuber.yaml 
+$ kubectl get svc
+copy service name 
+kubectl get pods (pods should be ready and running)
+$ minikube service  <service name>
+minikube dashboard
+
+
+
+
+kuber.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-boot-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: spring-boot-app
+
+  template:
+    metadata:
+      labels:
+        app: spring-boot-app
+    spec:
+      containers:
+       - name: spring-boot-app
+         image: tenth:latest
+         imagePullPolicy: Never
+         ports:
+          - containerPort: 8080
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-boot-service
+spec:
+  selector:
+    app: spring-boot-app
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer
+
+
